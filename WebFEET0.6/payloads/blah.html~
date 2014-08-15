@@ -1,0 +1,15 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<HTML>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+</meta>
+<title>Blocked site</title>
+</head>
+<body>
+<h1 style="margin: 0 0 45px 0; font-family: Tahoma,Sans; font-size: 20px; font-weight: bold; color: blue;">Web filter thingy</h1>
+<p>The web thingy you requested is BLOCKED! by your organization's filtering policies.</p>
+<p>
+<b>(you are in trouble now)</b>
+</p>
+</body>
+</HTML>
