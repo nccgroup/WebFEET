@@ -1,0 +1,20 @@
+Linux
+-----
+Tested on Ubuntu 13.04 LTS and Kali Linux
+
+Requirements - PHP, Apache, whois
+
+sudo -i
+apt-get update -y
+apt-get install apache2 php5 whois -y
+mkdir /var/www/html/WebFEET0.6
+chown ubuntu /var/www/html/WebFEET0.6/
+apt-get upgrade -y
+
+
+Windows
+-------
+Not tested on Windows
+
+
+

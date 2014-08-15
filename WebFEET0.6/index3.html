@@ -1,0 +1,705 @@
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+  <title>WebFEET Policy Enumeration Test Page (Beta 0.6)</title>
+      <script src="jquery.js"></script>
+<!-- <link rel='stylesheet' href='/normalize.css'> -->
+<style>
+.responstable {
+  margin: 1em 0;
+  width: 100%;
+  overflow: hidden;
+  background: white;
+  color: black;
+  border-radius: 5px;
+  border: 1px solid black;
+}
+.responstable tr {
+  border: 1px solid black;
+}
+.responstable tr:nth-child(odd) {
+  background-color: #dddddd;
+}
+.responstable th {
+  display: none;
+  border: 1px solid white;
+  background-color: #980000;
+  color: white;
+  padding: 1em;
+}
+.responstable th:first-child {
+  display: table-cell;
+  text-align: center;
+}
+.responstable th:nth-child(2) {
+  display: table-cell;
+}
+.responstable th:nth-child(2) span {
+  display: none;
+}
+.responstable th:nth-child(2):after {
+  content: attr(data-th);
+}
+@media (min-width: 480px) {
+  .responstable th:nth-child(2) span {
+    display: block;
+  }
+  .responstable th:nth-child(2):after {
+    display: none;
+  }
+}
+.responstable td {
+  display: block;
+  word-wrap: break-word;
+  max-width: 7em;
+}
+.responstable td:first-child {
+  display: table-cell;
+  text-align: center;
+  border-right: 1px solid #d9e4e6;
+}
+@media (min-width: 480px) {
+  .responstable td {
+    border: 1px solid #d9e4e6;
+  }
+}
+.responstable th, .responstable td {
+  text-align: left;
+  margin: .5em 1em;
+}
+@media (min-width: 480px) {
+  .responstable th, .responstable td {
+    display: table-cell;
+    padding: 0.25em;
+  }
+}
+
+body {
+  padding: 0 2em;
+  font-family: Arial, sans-serif;
+  color: black;
+  background: white;
+}
+
+h1 {
+  font-family: Verdana;
+  font-weight: normal;
+  color: black;
+}
+h1 span {
+  color: black;
+}
+</style>
+<script>
+if (window.location.protocol != "https:")
+    window.location.href = "https:" + window.location.href.substring(window.location.protocol.length);
+</script>
+</head>
+<body>
+
+<b>HTTPS Client address info</b>
+<br>
+External IP address and registration data for connecting client.
+<br>
+
+<table class="responstable">
+
+<tr>
+  <th>Information</th>
+  <th>Detail</th> 
+
+</tr>
+<tr>
+  <td>Protocol for this test</td>
+  <td><span id = "protocol">[None]</span></td> 
+  
+</tr>
+<tr>
+  <td>Connecting IP address</td>
+  <td><span id = "ip">[None]</span></td> 
+  
+</tr>
+<tr>
+  <td>whois info</td>
+  <td><span id = "whois">[None]</span></td> 
+  
+</tr>
+<tr>
+  <td>Web filter managed service by connecting IP address</td>
+  <td><span id = "managedservice">[None]</span></td> 
+  
+</tr>
+</table>
+
+<script type='text/javascript'>
+
+$.getJSON("whois.php","",function(whois){
+
+	document.getElementById("ip").innerHTML = whois.ip;
+	document.getElementById("whois").innerHTML = "<pre>"+whois.whois+"</pre>";
+	document.getElementById("managedservice").innerHTML = whois.managedservice;
+
+});
+
+
+</script>
+
+<br>
+<b>HTTPS Proxy information</b>
+<br>
+This proxy information has been extracted from HTTP headers.
+<br>
+
+<table class="responstable">
+
+<tr>
+  <th>Method</th>
+  <th>Proxy info</th> 
+
+</tr>
+<tr>
+  <td>'Via' header</td>
+  <td><span id = "viaheader">[None]</span></td> 
+  
+</tr>
+<tr>
+  <td>'Cache' header</td>
+  <td><span id = "cacheheader">[None]</span></td> 
+  
+</tr>
+<tr>
+  <td>'Cache-Lookup' header</td>
+  <td><span id = "cachelookupheader">[None]</span></td> 
+  
+</tr>
+<tr>
+  <td>Proxy hostname</td>
+  <td><span id = "yourproxyhostname">[Unknown]</span></td> 
+  
+</tr>
+<tr>
+  <td>Proxy IP address</td>
+  <td><span id = "yourproxyip">[Unknown]</span></td> 
+  
+</tr>
+<tr>
+  <td>Custom X-Headers</td>
+  <td><span id = "customxheader">[Unknown]</span></td> 
+  
+</tr>
+</table>
+<br>
+
+<script type='text/javascript'>
+document.getElementById("protocol").innerHTML = window.location.protocol;
+var req = new XMLHttpRequest();
+req.open('GET', 'payloads/test.txt', false); // just a text file
+req.send(null);
+
+// TODO this next bit needs to be improved to make sure we are properly extracting hostnames and IP addresses.
+// TODO also, there are other ways to get to the proxy, like 127.0.0.50, or whatever, do these work for images?
+var headers = req.getAllResponseHeaders();
+var via = req.getResponseHeader("Via");//.toLowerCase();
+var cache = req.getResponseHeader("X-Cache");//.toLowerCase();
+var lookup = req.getResponseHeader("X-Cache-Lookup");//.toLowerCase();
+if (cache)
+{
+  var proxyHostname = cache.match( /^MISS from (.+)/ )[1];
+}
+// var customxheaders = headers.match( /X-(.+)/g ); // TODO Improve regex
+
+if (via)
+{
+  var proxyHostname = via.match( /^1.[0:1] (.+)([ \:])/ )[1]; //get hostname or IP doesn't work with ip:port
+}
+
+
+document.getElementById("viaheader").innerHTML = via;
+document.getElementById("cacheheader").innerHTML = cache;
+document.getElementById("cachelookupheader").innerHTML = lookup;
+document.getElementById("yourproxyhostname").innerHTML = proxyHostname;
+document.getElementById("customxheader").innerHTML = "<pre>"+headers+"</pre>"; // TODO customxheaders;
+
+
+</script>
+
+
+<br>
+<b>HTTPS Sample Block-Page</b>
+<br>
+A simple request of EICAR to see if we get a block page, and whether it is vulnerable to XSS.
+<br>
+
+<table class="responstable">
+
+<tr>
+  <th>Result</th> 
+</tr>
+<tr>
+  <td><span id="eicarbasicresponse"></span></td> 
+</tr>
+</table>
+
+
+<script>
+var req2 = new XMLHttpRequest();
+req2.open('GET', 'payloads/eicar.com', false);
+req2.send(null);
+
+var eicarresponse = req2.responseText;
+
+document.getElementById("eicarbasicresponse").innerHTML = eicarresponse;
+
+</script>
+
+
+<br>
+<b>HTTPS Basic Download Block Tests</b>
+<br>
+Simple threats are tested here, to see if they are allowed, dropped, redirected, or result in a block-page.
+<br>
+
+<table class="responstable">
+
+<tr>
+  <th>Test File</th>
+  <th>Size</th> 
+  <th>Result</th> 
+</tr>
+<tr>
+  <td>EICAR basic test</td>
+  <td>68 bytes</td>
+  <td><span id="eicar.com">No response</span></td> 
+
+</tr>
+<tr>
+  <td>A standard Windows exe</td>
+  <td>0.2 MB</td>
+  <td><span id="notepad.exe">No response</span></td> 
+</tr>
+<tr>
+  <td>A file with profanity</td>
+  <td>39 bytes</td>
+  <td><span id="profane.txt">No response</span></td>  
+
+</tr>
+<tr>
+  <td>An unlocked breakout shell</td>
+  <td>0.3 MB</td>
+  <td><span id="64unlocked-cmd.exe">No response</span></td> 
+
+</tr>
+<tr>
+  <td>A Password dumping tool</td>
+  <td>0.5 MB</td>
+  <td><span id="gsecdump-v2b5.exe">No response</span></td>
+
+</tr>
+<tr>
+  <td>EICAR in a zip</td>
+  <td>184 bytes</td>
+  <td><span id="eicar_com.zip">No response</span></td>
+
+</tr>
+<tr>
+  <td>Some VBS script</td>
+  <td>22 bytes</td>
+  <td><span id="hello.vbs">No response</span></td>
+
+</tr>
+<tr>
+  <td>A batch file</td>
+  <td>11 bytes</td>
+  <td><span id="hello.bat">No response</span></td>
+
+</tr>
+<tr>
+  <td>A test block page (this should download and show green)</td>
+  <td>500 bytes</td>
+  <td><span id="blah.html">No response</span></td>
+
+</tr>
+</table>
+
+<br>
+<b>HTTPS Basic Download Block Tests by File Extension</b>
+<br>
+Simple high risk file extensions are tested here, to see if they are allowed, dropped, redirected, or result in a block-page. Content is irrelevant for these tests as we are checking policy for file extensions.
+<br>
+
+<table class="responstable">
+
+
+<tr>
+  <th>Test File</th>
+  <th>Size</th> 
+  <th>Result</th> 
+</tr>
+<tr>
+  <td>COM file extension</td>
+  <td>18 Bytes</td>
+  <td><span id="test.com">No response</span></td> 
+</tr>
+<tr>
+  <td>CPL file extension</td>
+  <td>18 Bytes</td>
+  <td><span id="test.cpl">No response</span></td> 
+</tr>
+<tr>
+  <td>HTA file extension</td>
+  <td>18 Bytes</td>
+  <td><span id="test.hta">No response</span></td> 
+</tr>
+<tr>
+  <td>JAR file extension</td>
+  <td>18 Bytes</td>
+  <td><span id="test.jar">No response</span></td> 
+</tr>
+<tr>
+  <td>MSC file extension</td>
+  <td>18 Bytes</td>
+  <td><span id="test.msc">No response</span></td> 
+</tr>
+<tr>
+  <td>PIF file extension</td>
+  <td>18 Bytes</td>
+  <td><span id="test.pif">No response</span></td> 
+</tr>
+<tr>
+  <td>SCR file extension</td>
+  <td>18 Bytes</td>
+  <td><span id="test.scr">No response</span></td> 
+</tr>
+<tr>
+  <td>BAT file extension</td>
+  <td>18 Bytes</td>
+  <td><span id="test.bat">No response</span></td> 
+</tr>
+<tr>
+  <td>CMD file extension</td>
+  <td>18 Bytes</td>
+  <td><span id="test.cmd">No response</span></td> 
+</tr>
+<tr>
+  <td>PS1 file extension</td>
+  <td>18 Bytes</td>
+  <td><span id="test.ps1">No response</span></td> 
+</tr>
+<tr>
+  <td>PS1XML file extension</td>
+  <td>18 Bytes</td>
+  <td><span id="test.ps1xml">No response</span></td> 
+</tr>
+<tr>
+  <td>PS2 file extension</td>
+  <td>18 Bytes</td>
+  <td><span id="test.ps2">No response</span></td> 
+</tr>
+<tr>
+  <td>PS2XML file extension</td>
+  <td>18 Bytes</td>
+  <td><span id="test.ps2xml">No response</span></td> 
+</tr>
+<tr>
+  <td>PSC1 file extension</td>
+  <td>18 Bytes</td>
+  <td><span id="test.psc1">No response</span></td> 
+</tr>
+<tr>
+  <td>PSC2 file extension</td>
+  <td>18 Bytes</td>
+  <td><span id="test.psc2">No response</span></td> 
+</tr>
+<tr>
+  <td>VB file extension</td>
+  <td>18 Bytes</td>
+  <td><span id="test.vb">No response</span></td> 
+</tr>
+<tr>
+  <td>VBE file extension</td>
+  <td>18 Bytes</td>
+  <td><span id="test.vbe">No response</span></td> 
+</tr>
+<tr>
+  <td>VBS file extension</td>
+  <td>18 Bytes</td>
+  <td><span id="test.vbs">No response</span></td> 
+</tr>
+<tr>
+  <td>WS file extension</td>
+  <td>18 Bytes</td>
+  <td><span id="test.ws">No response</span></td> 
+</tr>
+<tr>
+  <td>WSC file extension</td>
+  <td>18 Bytes</td>
+  <td><span id="test.wsc">No response</span></td> 
+</tr>
+<tr>
+  <td>WSF file extension</td>
+  <td>18 Bytes</td>
+  <td><span id="test.wsf">No response</span></td>
+</tr>
+<tr>
+  <td>WSH file extension</td>
+  <td>18 Bytes</td>
+  <td><span id="test.wsh">No response</span></td> 
+</tr>
+<tr>
+  <td>REG file extension</td>
+  <td>18 Bytes</td>
+  <td><span id="test.reg">No response</span></td> 
+</tr>
+<tr>
+  <td>EXE file extension</td>
+  <td>18 Bytes</td>
+  <td><span id="test.exe">No response</span></td> 
+</tr>
+
+
+</table>
+
+<br>
+<b>HTTPS Advanced Download Block Tests</b>
+<br>
+More challenging embedded threats are tested here, to see if they are allowed, dropped, redirected, or result in a block-page.
+<br>
+
+<table class="responstable">
+
+<tr>
+  <th>Test File</th>
+  <th>Size</th> 
+  <th>Result</th> 
+</tr>
+<tr>
+  <td>Custom exe</td>
+  <td>80 KB</td>
+  <td><span id="exe-popup.exe">No response</span></td> 
+
+</tr>
+<tr>
+  <td>Exe renamed TXT</td>
+  <td>80 KB</td>
+  <td><span id="exe-popup.txt">No response</span></td> 
+</tr>
+<tr>
+  <td>Exe renamed DOC</td>
+  <td>80 KB</td>
+  <td><span id="exe-popup.doc">No response</span></td>  
+
+</tr>
+<tr>
+  <td>Encrypted GPG</td>
+  <td>58 Bytes</td>
+  <td><span id="attachment1.txt.gpg">No response</span></td> 
+</tr>
+<tr>
+  <td>Exe in DOCX</td>
+  <td>57 KB</td>
+  <td><span id="exe-in-word-2010.docx">No response</span></td> 
+</tr>
+<tr>
+  <td>Exe in DOC</td>
+  <td>0.1 MB</td>
+  <td><span id="exe-in-word-97-2003.doc">No response</span></td> 
+</tr>
+<tr>
+  <td>Exe in ODT</td>
+  <td>48 KB</td>
+  <td><span id="exe-in-open-document-text.odt">No response</span></td> 
+</tr>
+<tr>
+  <td>Exe in RTF</td>
+  <td>0,2 MB</td>
+  <td><span id="exe-in-rtf.rtf">No response</span></td> 
+</tr>
+<tr>
+  <td>BAT Script in DOCX</td>
+  <td>21 KB</td>
+  <td><span id="batch-in-word-2010.docx">No response</span></td> 
+</tr>
+<tr>
+  <td>BAT Script in DOC</td>
+  <td>30 KB</td>
+  <td><span id="batch-in-word-97-2003.doc">No response</span></td> 
+</tr>
+<tr>
+  <td>BAT Script in ODT</td>
+  <td>12 KB</td>
+  <td><span id="batch-in-open-document-text.odt">No response</span></td> 
+</tr>
+<tr>
+  <td>BAT Script in RTF</td>
+  <td>73 KB</td>
+  <td><span id="batch-in-rtf.rtf">No response</span></td> 
+</tr>
+<tr>
+  <td>Password XLS (old)</td>
+  <td>22 KB</td>
+  <td><span id="excel-5-95.xls">No response</span></td> 
+</tr>
+<tr>
+  <td>Password XLSB</td>
+  <td>15 KB</td>
+  <td><span id="excel-binary.xlsb">No response</span></td> 
+</tr>
+<tr>
+  <td>Password XLSX</td>
+  <td>15 KB</td>
+  <td><span id="excel-2010.xlsx">No response</span></td> 
+</tr>
+<tr>
+  <td>Password XLS</td>
+  <td>22 KB</td>
+  <td><span id="excel-97-2003.xls">No response</span></td> 
+</tr>
+<tr>
+  <td>Password ODS</td>
+  <td>6 KB</td>
+  <td><span id="open-document-spreadsheet.ods">No response</span></td> 
+</tr>
+<tr>
+  <td>Password XLSM</td>
+  <td>15 KB</td>
+  <td><span id="excel-2010-macro-enabled.xlsm">No response</span></td> 
+</tr>
+<tr>
+  <td>Password DOCX</td>
+  <td>18 KB</td>
+  <td><span id="password-word-2010.docx">No response</span></td> 
+</tr>
+<tr>
+  <td>Password DOC</td>
+  <td>21 KB</td>
+  <td><span id="password-word-97-2003.doc">No response</span></td> 
+</tr>
+<tr>
+  <td>Password DOCM</td>
+  <td>18 KB</td>
+  <td><span id="password-word-2010-macro-enabled.docm">No response</span></td> 
+</tr>
+<tr>
+  <td>Password ODT</td>
+  <td>7 KB</td>
+  <td><span id="open-document-text.odt">No response</span></td> 
+</tr>
+<tr>
+  <td>Password PPSM</td>
+  <td>39 KB</td>
+  <td><span id="powerpoint-show-macro-enabled.ppsm">No response</span></td> 
+</tr>
+<tr>
+  <td>Password PPTX</td>
+  <td>39 KB</td>
+  <td><span id="powerpoint-2010.pptx">No response</span></td> 
+</tr>
+<tr>
+  <td>Password PPSX</td>
+  <td>39 KB</td>
+  <td><span id="powerpoint-show.ppsx">No response</span></td> 
+</tr>
+<tr>
+  <td>Password PPTM</td>
+  <td>39 KB</td>
+  <td><span id="powerpoint-2010-macro-enabled.pptm">No response</span></td> 
+</tr>
+<tr>
+  <td>Password ODP</td>
+  <td>17 KB</td>
+  <td><span id="open-document-presentation.odp">No response</span></td> 
+</tr>
+<tr>
+  <td>Password PPT</td>
+  <td>42 KB</td>
+  <td><span id="powerpoint-97-2003.ppt">No response</span></td> 
+</tr>
+<tr>
+  <td>Macro XLSM</td>
+  <td>15 KB</td>
+  <td><span id="macro-excel-2010-macro-enabled.xlsm">No response</span></td> 
+</tr>
+<tr>
+  <td>Macro XLS</td>
+  <td>34 KB</td>
+  <td><span id="macro-in-excel-97-2003.xls">No response</span></td> 
+</tr>
+<tr>
+  <td>Macro XLSM renamed XLS</td>
+  <td>15 KB</td>
+  <td><span id="macro-excel-2010-macro-enabled-renamed.xls">No response</span></td> 
+</tr>
+<tr>
+  <td>VBS Script in DOC</td>
+  <td>30 KB</td>
+  <td><span id="vbs-in-word-97-2003.doc">No response</span></td> 
+</tr>
+<tr>
+  <td>VBS Script in DOCX</td>
+  <td>21 KB</td>
+  <td><span id="vbs-in-word-2010.docx">No response</span></td> 
+</tr>
+<tr>
+  <td>VBS Script in ODT</td>
+  <td>12 KB</td>
+  <td><span id="vbs-in-open-document-text.odt">No response</span></td> 
+</tr>
+<tr>
+  <td>VBS Script in RTF</td>
+  <td>73 KB</td>
+  <td><span id="vbs-in-rtf.rtf">No response</span></td> 
+</tr>
+<tr>
+  <td>Password ZIP 1</td>
+  <td>192 Bytes</td>
+  <td><span id="windows-password-zip.zip">No response</span></td> 
+</tr>
+<tr>
+  <td>Password ZIP 2</td>
+  <td>226 Bytes</td>
+  <td><span id="zip-aes.zip">No response</span></td> 
+</tr>
+</table>
+
+
+<script>
+var files = ['test.com', 'test.cpl', 'test.hta', 'test.jar', 'test.msc', 'test.pif', 'test.scr', 'test.bat', 'test.cmd', 'test.ps1', 'test.ps1xml', 'test.ps2', 'test.ps2xml', 'test.psc1', 'test.psc2', 'test.vb', 'test.vbe', 'test.vbs', 'test.ws', 'test.wsc', 'test.wsf', 'test.wsh', 'test.reg', 'test.exe', '64unlocked-cmd.exe','exe-in-rtf.rtf','password-word-2010.docx','attachment1.txt.gpg','exe-in-word-2010.docx','password-word-2010-macro-enabled.docm','batch-in-open-document-text.odt','exe-in-word-97-2003.doc','password-word-97-2003.doc','batch-in-rtf.rtf','exe-popup.doc','powerpoint-2010-macro-enabled.pptm','batch-in-word-2010.docx','exe-popup.exe','powerpoint-2010.pptx','batch-in-word-97-2003.doc','exe-popup.txt','powerpoint-97-2003.ppt','blah.html','gsecdump-v2b5.exe','powerpoint-show-macro-enabled.ppsm','blah.html~','hello.bat','powerpoint-show.ppsx','eicar.com','hello.vbs','profane.txt','eicar_com.zip','macro-excel-2010-macro-enabled-renamed.xls','vbs-in-open-document-text.odt','excel-2010-macro-enabled.xlsm','macro-excel-2010-macro-enabled.xlsm','vbs-in-rtf.rtf','excel-2010.xlsx','macro-in-excel-97-2003.xls','vbs-in-word-2010.docx','excel-5-95.xls','notepad.exe','vbs-in-word-97-2003.doc','excel-97-2003.xls','open-document-presentation.odp','windows-password-zip.zip','excel-binary.xlsb','open-document-spreadsheet.ods','zip-aes.zip','exe-in-open-document-text.odt','open-document-text.odt'];
+
+
+// Multi-file Downloader
+$(files).each(function() {
+  var filedownload = this;
+  $.get( "payloads/" + filedownload, function( data ) {
+  
+    var jsSrcRegex = /<html(.+?)/igm;
+    jsSrcRegex.compile(jsSrcRegex);
+
+    if (jsSrcRegex.exec(data)) {
+    document.getElementById(filedownload).innerHTML = "<font color=green>Block Page: Size = " + data.length + "</font>";
+    $.post( 'upload.php', {  block : data, name : filedownload } );
+    } else if (data === "") {
+	document.getElementById(filedownload).innerHTML = "<font color=green>Blocked: Size = " + data.length + "</font>";
+    } else {
+	document.getElementById(filedownload).innerHTML = "<font color=red>Downloaded: Size = " + data.length + "</font>"; // TODO for old versions of IE, the length of the data is not correct (even though the file is downloaded). Need to find a way to make this clearer or more reliable
+    }
+});
+});
+
+</script>
+
+
+<script>
+function callback(){
+    return function(){
+    // POST back the DOM for analysis
+    var posting = $.post( 'upload.php', {  dom : document.documentElement.innerHTML } ); 
+    }
+}
+
+setTimeout(callback(), 10000);
+
+</script>
+
+</body>
+</html>

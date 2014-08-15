@@ -1,0 +1,121 @@
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+  <title>WebFEET Policy Enumeration Test Page (Beta 0.6)</title>
+<!-- <link rel='stylesheet' href='/normalize.css'> -->
+<style>
+.responstable {
+  margin: 1em 0;
+  width: 100%;
+  overflow: hidden;
+  background: white;
+  color: black;
+  border-radius: 5px;
+  border: 1px solid black;
+}
+.responstable tr {
+  border: 1px solid black;
+}
+.responstable tr:nth-child(odd) {
+  background-color: #dddddd;
+}
+.responstable th {
+  display: none;
+  border: 1px solid white;
+  background-color: #980000;
+  color: white;
+  padding: 1em;
+}
+.responstable th:first-child {
+  display: table-cell;
+  text-align: center;
+}
+.responstable th:nth-child(2) {
+  display: table-cell;
+}
+.responstable th:nth-child(2) span {
+  display: none;
+}
+.responstable th:nth-child(2):after {
+  content: attr(data-th);
+}
+@media (min-width: 480px) {
+  .responstable th:nth-child(2) span {
+    display: block;
+  }
+  .responstable th:nth-child(2):after {
+    display: none;
+  }
+}
+.responstable td {
+  display: block;
+  word-wrap: break-word;
+  max-width: 7em;
+}
+.responstable td:first-child {
+  display: table-cell;
+  text-align: center;
+  border-right: 1px solid #d9e4e6;
+}
+@media (min-width: 480px) {
+  .responstable td {
+    border: 1px solid #d9e4e6;
+  }
+}
+.responstable th, .responstable td {
+  text-align: left;
+  margin: .5em 1em;
+}
+@media (min-width: 480px) {
+  .responstable th, .responstable td {
+    display: table-cell;
+    padding: 1em;
+  }
+}
+
+body {
+  padding: 0 2em;
+  font-family: Arial, sans-serif;
+  color: black;
+  background: white;
+}
+
+h1 {
+  font-family: Verdana;
+  font-weight: normal;
+  color: black;
+}
+h1 span {
+  color: black;
+}
+</style>
+</head>
+<body>
+<br>
+<div class="brand"><img height="60" width="195" src="images/logo.png" alt="NCC Group"></img></div>
+<br>
+<br><b>Web Filter External Enumeration Tool (WebFEET Beta 0.6).</b>
+<br>
+<br>A web application for the drive-by enumeration of web security proxies and policies. See associated white paper: <a href="https://www.nccgroup.com/en/learning-and-research-centre/white-papers/">Drive-by enumeration of web filtering solutions</a><br>
+This tool was developed by Ben Williams (ben dot williams at nccgroup dot com), presented at BlackHat US 2014: <a href="https://www.blackhat.com/us-14/briefings.html#i-know-your-filtering-policy-better-than-you-do-external-enumeration-and-exploitation-of-email-and-web-security-solutions">I know your filtering policy better than you do</a>, and released as open source by NCC Group Plc <a href="http://www.nccgroup.com/">http://www.nccgroup.com/</a>
+<br>
+<br>
+By viewing the following pages you are consenting to the collection information which may include:<br><br>
+&nbsp;&nbsp;-&nbsp;&nbsp;The type of browser and operating system you are using<br>
+&nbsp;&nbsp;-&nbsp;&nbsp;Other software versions and configuration<br>
+&nbsp;&nbsp;-&nbsp;&nbsp;Information about web security proxies used, their versions and configurations<br>
+&nbsp;&nbsp;-&nbsp;&nbsp;Your network connectivity and configuration, and how your internet usage is filtered<br>
+&nbsp;&nbsp;-&nbsp;&nbsp;IP address information assigned to your system or internet connection<br>
+&nbsp;&nbsp;-&nbsp;&nbsp;Other information such as internal usernames and domain names can sometimes be disclosed<br>
+<br>
+This information will be used for Security Assessment and IT Security Research purposes.<br>
+<br>
+Usage of this application for enumerating targets without prior mutual consent may be considered an attack in some circumstances. Caution is advised and it remains your responsibility to obey applicable local, state, federal, national and international laws. NCC Group assume no liability and are not responsible for any misuse or damage caused by this application.
+<br>
+<br>
+<form name="input" action="index2.html" method="get">
+<font color=red>NOTE: The following page is going to request some resources which may trigger alerts. Only click this button if you agree&nbsp;&nbsp;</font><input type="submit" value="I agree">
+</form>
+ 
+</body>

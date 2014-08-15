@@ -1,0 +1,1125 @@
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+  <title>WebFEET Policy Enumeration Test Page (Beta 0.6)</title>
+      <script src="jquery.js"></script>
+<!-- <link rel='stylesheet' href='/normalize.css'> -->
+<style>
+.responstable {
+  margin: 1em 0;
+  width: 100%;
+  overflow: hidden;
+  background: white;
+  color: black;
+  border-radius: 5px;
+  border: 1px solid black;
+}
+.responstable tr {
+  border: 1px solid black;
+}
+.responstable tr:nth-child(odd) {
+  background-color: #dddddd;
+}
+.responstable th {
+  display: none;
+  border: 1px solid white;
+  background-color: #980000;
+  color: white;
+  padding: 1em;
+}
+.responstable th:first-child {
+  display: table-cell;
+  text-align: center;
+}
+.responstable th:nth-child(2) {
+  display: table-cell;
+}
+.responstable th:nth-child(2) span {
+  display: none;
+}
+.responstable th:nth-child(2):after {
+  content: attr(data-th);
+}
+@media (min-width: 480px) {
+  .responstable th:nth-child(2) span {
+    display: block;
+  }
+  .responstable th:nth-child(2):after {
+    display: none;
+  }
+}
+.responstable td {
+  display: block;
+  word-wrap: break-word;
+  max-width: 7em;
+}
+.responstable td:first-child {
+  display: table-cell;
+  text-align: center;
+  border-right: 1px solid #d9e4e6;
+}
+@media (min-width: 480px) {
+  .responstable td {
+    border: 1px solid #d9e4e6;
+  }
+}
+.responstable th, .responstable td {
+  text-align: left;
+  margin: .5em 1em;
+}
+@media (min-width: 480px) {
+  .responstable th, .responstable td {
+    display: table-cell;
+    padding: 0.25em;
+  }
+}
+
+body {
+  padding: 0 2em;
+  font-family: Arial, sans-serif;
+  color: black;
+  background: white;
+}
+
+h1 {
+  font-family: Verdana;
+  font-weight: normal;
+  color: black;
+}
+h1 span {
+  color: black;
+}
+</style>
+</head>
+<body>
+<br>
+<div class="brand"><img height="60" width="195" src="images/logo.png" alt="NCC Group"></img></div>
+<br>
+<br><b>Web Filter External Enumeration Tool (WebFEET Beta 0.6).</b>
+<br>
+<br>A web application for the drive-by enumeration of web security proxies and policies. See associated white paper: <a href="https://www.nccgroup.com/en/learning-and-research-centre/white-papers/">Drive-by enumeration of web filtering solutions</a><br>
+This tool was developed by Ben Williams (ben dot williams at nccgroup dot com), presented at BlackHat US 2014: <a href="https://www.blackhat.com/us-14/briefings.html#i-know-your-filtering-policy-better-than-you-do-external-enumeration-and-exploitation-of-email-and-web-security-solutions">I know your filtering policy better than you do</a>, and released as open source by NCC Group Plc <a href="http://www.nccgroup.com/">http://www.nccgroup.com/</a>
+<br>
+<br>
+By viewing the following pages you are consenting to the collection information which may include:<br><br>
+&nbsp;&nbsp;-&nbsp;&nbsp;The type of browser and operating system you are using<br>
+&nbsp;&nbsp;-&nbsp;&nbsp;Other software versions and configuration<br>
+&nbsp;&nbsp;-&nbsp;&nbsp;Information about web security proxies used, their versions and configurations<br>
+&nbsp;&nbsp;-&nbsp;&nbsp;Your network connectivity and configuration, and how your internet usage is filtered<br>
+&nbsp;&nbsp;-&nbsp;&nbsp;IP address information assigned to your system or internet connection<br>
+&nbsp;&nbsp;-&nbsp;&nbsp;Other information such as internal usernames and domain names can sometimes be disclosed<br>
+<br>
+This information will be used for Security Assessment and IT Security Research purposes.<br>
+<br>
+Usage of this application for enumerating targets without prior mutual consent may be considered an attack in some circumstances. Caution is advised and it remains your responsibility to obey applicable local, state, federal, national and international laws. NCC Group assume no liability and are not responsible for any misuse or damage caused by this application.
+<br>
+<br>
+
+<b>Client address info</b>
+<br>
+External IP address and registration data for connecting client.
+<br>
+
+<table class="responstable">
+
+<tr>
+  <th>Information</th>
+  <th>Detail</th> 
+
+</tr>
+<tr>
+  <td>Protocol for this test</td>
+  <td><span id = "protocol">[None]</span></td> 
+  
+</tr>
+<tr>
+  <td>Connecting IP address</td>
+  <td><span id = "ip">[None]</span></td> 
+  
+</tr>
+<tr>
+  <td>whois info</td>
+  <td><span id = "whois">[None]</span></td> 
+  
+</tr>
+<tr>
+  <td>Web filter managed service by connecting IP address</td>
+  <td><span id = "managedservice">[None]</span></td> 
+  
+</tr>
+</table>
+
+<script type='text/javascript'>
+
+$.getJSON("whois.php","",function(whois){
+
+	document.getElementById("ip").innerHTML = whois.ip;
+	document.getElementById("whois").innerHTML = "<pre>"+whois.whois+"</pre>";
+	document.getElementById("managedservice").innerHTML = whois.managedservice;
+
+});
+
+
+</script>
+
+<br>
+<b>Proxy information</b>
+<br>
+This proxy information has been extracted from HTTP headers.
+<br>
+
+<table class="responstable">
+
+<tr>
+  <th>Method</th>
+  <th>Proxy info</th> 
+
+</tr>
+<tr>
+  <td>'Via' header</td>
+  <td><span id = "viaheader">[None]</span></td> 
+  
+</tr>
+<tr>
+  <td>'Cache' header</td>
+  <td><span id = "cacheheader">[None]</span></td> 
+  
+</tr>
+<tr>
+  <td>'Cache-Lookup' header</td>
+  <td><span id = "cachelookupheader">[None]</span></td> 
+  
+</tr>
+<tr>
+  <td>Proxy hostname</td>
+  <td><span id = "yourproxyhostname">[Unknown]</span></td> 
+  
+</tr>
+<tr>
+  <td>Proxy IP address</td>
+  <td><span id = "yourproxyip">[Unknown]</span></td> 
+  
+</tr>
+<tr>
+  <td>Custom X-Headers</td>
+  <td><span id = "customxheader">[Unknown]</span></td> 
+  
+</tr>
+</table>
+<br>
+
+<script type='text/javascript'>
+document.getElementById("protocol").innerHTML = window.location.protocol;
+var req = new XMLHttpRequest();
+req.open('GET', 'payloads/test.txt', false); // just a text file
+req.send(null);
+
+// TODO this next bit needs to be improved to make sure we are properly extracting hostnames and IP addresses.
+// TODO also, there are other ways to get to the proxy, like 127.0.0.50, or whatever, do these work for images?
+var headers = req.getAllResponseHeaders();
+var via = req.getResponseHeader("Via");//.toLowerCase();
+var cache = req.getResponseHeader("X-Cache");//.toLowerCase();
+var lookup = req.getResponseHeader("X-Cache-Lookup");//.toLowerCase();
+if (cache)
+{
+  var proxyHostname = cache.match( /^MISS from (.+)/ )[1];
+}
+// var customxheaders = headers.match( /X-(.+)/g ); // TODO Improve regex
+
+if (via)
+{
+  var proxyHostname = via.match( /^1.[0:1] (.+)([ \:])/ )[1]; //get hostname or IP doesn't work with ip:port
+}
+
+
+document.getElementById("viaheader").innerHTML = via;
+document.getElementById("cacheheader").innerHTML = cache;
+document.getElementById("cachelookupheader").innerHTML = lookup;
+document.getElementById("yourproxyhostname").innerHTML = proxyHostname;
+document.getElementById("customxheader").innerHTML = "<pre>"+headers+"</pre>"; // TODO customxheaders;
+
+
+</script>
+
+
+<br>
+<b>Sample Block-Page</b>
+<br>
+A simple request of EICAR to see if we get a block page, and whether it is vulnerable to XSS.
+<br>
+
+<table class="responstable">
+
+<tr>
+  <th>Result</th> 
+</tr>
+<tr>
+  <td><span id="eicarbasicresponse"></span></td> 
+</tr>
+</table>
+
+
+<script>
+var req2 = new XMLHttpRequest();
+req2.open('GET', 'payloads/eicar.com', false);
+req2.send(null);
+
+var eicarresponse = req2.responseText;
+
+document.getElementById("eicarbasicresponse").innerHTML = eicarresponse;
+
+</script>
+
+
+<br>
+<b>Basic Download Block Tests</b>
+<br>
+Simple threats are tested here, to see if they are allowed, dropped, redirected, or result in a block-page.
+<br>
+
+<table class="responstable">
+
+<tr>
+  <th>Test File</th>
+  <th>Size</th> 
+  <th>Result</th> 
+</tr>
+<tr>
+  <td>EICAR basic test</td>
+  <td>68 bytes</td>
+  <td><span id="eicar.com">No response</span></td> 
+
+</tr>
+<tr>
+  <td>A standard Windows exe</td>
+  <td>0.2 MB</td>
+  <td><span id="notepad.exe">No response</span></td> 
+</tr>
+<tr>
+  <td>A file with profanity</td>
+  <td>39 bytes</td>
+  <td><span id="profane.txt">No response</span></td>  
+
+</tr>
+<tr>
+  <td>An unlocked breakout shell</td>
+  <td>0.3 MB</td>
+  <td><span id="64unlocked-cmd.exe">No response</span></td> 
+
+</tr>
+<tr>
+  <td>A Password dumping tool</td>
+  <td>0.5 MB</td>
+  <td><span id="gsecdump-v2b5.exe">No response</span></td>
+
+</tr>
+<tr>
+  <td>EICAR in a zip</td>
+  <td>184 bytes</td>
+  <td><span id="eicar_com.zip">No response</span></td>
+
+</tr>
+<tr>
+  <td>Some VBS script</td>
+  <td>22 bytes</td>
+  <td><span id="hello.vbs">No response</span></td>
+
+</tr>
+<tr>
+  <td>A batch file</td>
+  <td>11 bytes</td>
+  <td><span id="hello.bat">No response</span></td>
+
+</tr>
+<tr>
+  <td>A test block page (this should download and show green)</td>
+  <td>500 bytes</td>
+  <td><span id="blah.html">No response</span></td>
+
+</tr>
+</table>
+
+<br>
+<b>Basic Download Block Tests by File Extension</b>
+<br>
+Simple high risk file extensions are tested here, to see if they are allowed, dropped, redirected, or result in a block-page. Content is irrelevant for these tests as we are checking policy for file extensions.
+<br>
+
+<table class="responstable">
+
+
+<tr>
+  <th>Test File</th>
+  <th>Size</th> 
+  <th>Result</th> 
+</tr>
+<tr>
+  <td>COM file extension</td>
+  <td>18 Bytes</td>
+  <td><span id="test.com">No response</span></td> 
+</tr>
+<tr>
+  <td>CPL file extension</td>
+  <td>18 Bytes</td>
+  <td><span id="test.cpl">No response</span></td> 
+</tr>
+<tr>
+  <td>HTA file extension</td>
+  <td>18 Bytes</td>
+  <td><span id="test.hta">No response</span></td> 
+</tr>
+<tr>
+  <td>JAR file extension</td>
+  <td>18 Bytes</td>
+  <td><span id="test.jar">No response</span></td> 
+</tr>
+<tr>
+  <td>MSC file extension</td>
+  <td>18 Bytes</td>
+  <td><span id="test.msc">No response</span></td> 
+</tr>
+<tr>
+  <td>PIF file extension</td>
+  <td>18 Bytes</td>
+  <td><span id="test.pif">No response</span></td> 
+</tr>
+<tr>
+  <td>SCR file extension</td>
+  <td>18 Bytes</td>
+  <td><span id="test.scr">No response</span></td> 
+</tr>
+<tr>
+  <td>BAT file extension</td>
+  <td>18 Bytes</td>
+  <td><span id="test.bat">No response</span></td> 
+</tr>
+<tr>
+  <td>CMD file extension</td>
+  <td>18 Bytes</td>
+  <td><span id="test.cmd">No response</span></td> 
+</tr>
+<tr>
+  <td>PS1 file extension</td>
+  <td>18 Bytes</td>
+  <td><span id="test.ps1">No response</span></td> 
+</tr>
+<tr>
+  <td>PS1XML file extension</td>
+  <td>18 Bytes</td>
+  <td><span id="test.ps1xml">No response</span></td> 
+</tr>
+<tr>
+  <td>PS2 file extension</td>
+  <td>18 Bytes</td>
+  <td><span id="test.ps2">No response</span></td> 
+</tr>
+<tr>
+  <td>PS2XML file extension</td>
+  <td>18 Bytes</td>
+  <td><span id="test.ps2xml">No response</span></td> 
+</tr>
+<tr>
+  <td>PSC1 file extension</td>
+  <td>18 Bytes</td>
+  <td><span id="test.psc1">No response</span></td> 
+</tr>
+<tr>
+  <td>PSC2 file extension</td>
+  <td>18 Bytes</td>
+  <td><span id="test.psc2">No response</span></td> 
+</tr>
+<tr>
+  <td>VB file extension</td>
+  <td>18 Bytes</td>
+  <td><span id="test.vb">No response</span></td> 
+</tr>
+<tr>
+  <td>VBE file extension</td>
+  <td>18 Bytes</td>
+  <td><span id="test.vbe">No response</span></td> 
+</tr>
+<tr>
+  <td>VBS file extension</td>
+  <td>18 Bytes</td>
+  <td><span id="test.vbs">No response</span></td> 
+</tr>
+<tr>
+  <td>WS file extension</td>
+  <td>18 Bytes</td>
+  <td><span id="test.ws">No response</span></td> 
+</tr>
+<tr>
+  <td>WSC file extension</td>
+  <td>18 Bytes</td>
+  <td><span id="test.wsc">No response</span></td> 
+</tr>
+<tr>
+  <td>WSF file extension</td>
+  <td>18 Bytes</td>
+  <td><span id="test.wsf">No response</span></td>
+</tr>
+<tr>
+  <td>WSH file extension</td>
+  <td>18 Bytes</td>
+  <td><span id="test.wsh">No response</span></td> 
+</tr>
+<tr>
+  <td>REG file extension</td>
+  <td>18 Bytes</td>
+  <td><span id="test.reg">No response</span></td> 
+</tr>
+<tr>
+  <td>EXE file extension</td>
+  <td>18 Bytes</td>
+  <td><span id="test.exe">No response</span></td> 
+</tr>
+
+
+</table>
+
+<br>
+<b>Advanced Download Block Tests</b>
+<br>
+More challenging embedded threats are tested here, to see if they are allowed, dropped, redirected, or result in a block-page.
+<br>
+
+<table class="responstable">
+
+<tr>
+  <th>Test File</th>
+  <th>Size</th> 
+  <th>Result</th> 
+</tr>
+<tr>
+  <td>Custom exe</td>
+  <td>80 KB</td>
+  <td><span id="exe-popup.exe">No response</span></td> 
+
+</tr>
+<tr>
+  <td>Exe renamed TXT</td>
+  <td>80 KB</td>
+  <td><span id="exe-popup.txt">No response</span></td> 
+</tr>
+<tr>
+  <td>Exe renamed DOC</td>
+  <td>80 KB</td>
+  <td><span id="exe-popup.doc">No response</span></td>  
+
+</tr>
+<tr>
+  <td>Encrypted GPG</td>
+  <td>58 Bytes</td>
+  <td><span id="attachment1.txt.gpg">No response</span></td> 
+</tr>
+<tr>
+  <td>Exe in DOCX</td>
+  <td>57 KB</td>
+  <td><span id="exe-in-word-2010.docx">No response</span></td> 
+</tr>
+<tr>
+  <td>Exe in DOC</td>
+  <td>0.1 MB</td>
+  <td><span id="exe-in-word-97-2003.doc">No response</span></td> 
+</tr>
+<tr>
+  <td>Exe in ODT</td>
+  <td>48 KB</td>
+  <td><span id="exe-in-open-document-text.odt">No response</span></td> 
+</tr>
+<tr>
+  <td>Exe in RTF</td>
+  <td>0,2 MB</td>
+  <td><span id="exe-in-rtf.rtf">No response</span></td> 
+</tr>
+<tr>
+  <td>BAT Script in DOCX</td>
+  <td>21 KB</td>
+  <td><span id="batch-in-word-2010.docx">No response</span></td> 
+</tr>
+<tr>
+  <td>BAT Script in DOC</td>
+  <td>30 KB</td>
+  <td><span id="batch-in-word-97-2003.doc">No response</span></td> 
+</tr>
+<tr>
+  <td>BAT Script in ODT</td>
+  <td>12 KB</td>
+  <td><span id="batch-in-open-document-text.odt">No response</span></td> 
+</tr>
+<tr>
+  <td>BAT Script in RTF</td>
+  <td>73 KB</td>
+  <td><span id="batch-in-rtf.rtf">No response</span></td> 
+</tr>
+<tr>
+  <td>Password XLS (old)</td>
+  <td>22 KB</td>
+  <td><span id="excel-5-95.xls">No response</span></td> 
+</tr>
+<tr>
+  <td>Password XLSB</td>
+  <td>15 KB</td>
+  <td><span id="excel-binary.xlsb">No response</span></td> 
+</tr>
+<tr>
+  <td>Password XLSX</td>
+  <td>15 KB</td>
+  <td><span id="excel-2010.xlsx">No response</span></td> 
+</tr>
+<tr>
+  <td>Password XLS</td>
+  <td>22 KB</td>
+  <td><span id="excel-97-2003.xls">No response</span></td> 
+</tr>
+<tr>
+  <td>Password ODS</td>
+  <td>6 KB</td>
+  <td><span id="open-document-spreadsheet.ods">No response</span></td> 
+</tr>
+<tr>
+  <td>Password XLSM</td>
+  <td>15 KB</td>
+  <td><span id="excel-2010-macro-enabled.xlsm">No response</span></td> 
+</tr>
+<tr>
+  <td>Password DOCX</td>
+  <td>18 KB</td>
+  <td><span id="password-word-2010.docx">No response</span></td> 
+</tr>
+<tr>
+  <td>Password DOC</td>
+  <td>21 KB</td>
+  <td><span id="password-word-97-2003.doc">No response</span></td> 
+</tr>
+<tr>
+  <td>Password DOCM</td>
+  <td>18 KB</td>
+  <td><span id="password-word-2010-macro-enabled.docm">No response</span></td> 
+</tr>
+<tr>
+  <td>Password ODT</td>
+  <td>7 KB</td>
+  <td><span id="open-document-text.odt">No response</span></td> 
+</tr>
+<tr>
+  <td>Password PPSM</td>
+  <td>39 KB</td>
+  <td><span id="powerpoint-show-macro-enabled.ppsm">No response</span></td> 
+</tr>
+<tr>
+  <td>Password PPTX</td>
+  <td>39 KB</td>
+  <td><span id="powerpoint-2010.pptx">No response</span></td> 
+</tr>
+<tr>
+  <td>Password PPSX</td>
+  <td>39 KB</td>
+  <td><span id="powerpoint-show.ppsx">No response</span></td> 
+</tr>
+<tr>
+  <td>Password PPTM</td>
+  <td>39 KB</td>
+  <td><span id="powerpoint-2010-macro-enabled.pptm">No response</span></td> 
+</tr>
+<tr>
+  <td>Password ODP</td>
+  <td>17 KB</td>
+  <td><span id="open-document-presentation.odp">No response</span></td> 
+</tr>
+<tr>
+  <td>Password PPT</td>
+  <td>42 KB</td>
+  <td><span id="powerpoint-97-2003.ppt">No response</span></td> 
+</tr>
+<tr>
+  <td>Macro XLSM</td>
+  <td>15 KB</td>
+  <td><span id="macro-excel-2010-macro-enabled.xlsm">No response</span></td> 
+</tr>
+<tr>
+  <td>Macro XLS</td>
+  <td>34 KB</td>
+  <td><span id="macro-in-excel-97-2003.xls">No response</span></td> 
+</tr>
+<tr>
+  <td>Macro XLSM renamed XLS</td>
+  <td>15 KB</td>
+  <td><span id="macro-excel-2010-macro-enabled-renamed.xls">No response</span></td> 
+</tr>
+<tr>
+  <td>VBS Script in DOC</td>
+  <td>30 KB</td>
+  <td><span id="vbs-in-word-97-2003.doc">No response</span></td> 
+</tr>
+<tr>
+  <td>VBS Script in DOCX</td>
+  <td>21 KB</td>
+  <td><span id="vbs-in-word-2010.docx">No response</span></td> 
+</tr>
+<tr>
+  <td>VBS Script in ODT</td>
+  <td>12 KB</td>
+  <td><span id="vbs-in-open-document-text.odt">No response</span></td> 
+</tr>
+<tr>
+  <td>VBS Script in RTF</td>
+  <td>73 KB</td>
+  <td><span id="vbs-in-rtf.rtf">No response</span></td> 
+</tr>
+<tr>
+  <td>Password ZIP 1</td>
+  <td>192 Bytes</td>
+  <td><span id="windows-password-zip.zip">No response</span></td> 
+</tr>
+<tr>
+  <td>Password ZIP 2</td>
+  <td>226 Bytes</td>
+  <td><span id="zip-aes.zip">No response</span></td> 
+</tr>
+</table>
+
+
+<script>
+var files = ['test.com', 'test.cpl', 'test.hta', 'test.jar', 'test.msc', 'test.pif', 'test.scr', 'test.bat', 'test.cmd', 'test.ps1', 'test.ps1xml', 'test.ps2', 'test.ps2xml', 'test.psc1', 'test.psc2', 'test.vb', 'test.vbe', 'test.vbs', 'test.ws', 'test.wsc', 'test.wsf', 'test.wsh', 'test.reg', 'test.exe', '64unlocked-cmd.exe','exe-in-rtf.rtf','password-word-2010.docx','attachment1.txt.gpg','exe-in-word-2010.docx','password-word-2010-macro-enabled.docm','batch-in-open-document-text.odt','exe-in-word-97-2003.doc','password-word-97-2003.doc','batch-in-rtf.rtf','exe-popup.doc','powerpoint-2010-macro-enabled.pptm','batch-in-word-2010.docx','exe-popup.exe','powerpoint-2010.pptx','batch-in-word-97-2003.doc','exe-popup.txt','powerpoint-97-2003.ppt','blah.html','gsecdump-v2b5.exe','powerpoint-show-macro-enabled.ppsm','blah.html~','hello.bat','powerpoint-show.ppsx','eicar.com','hello.vbs','profane.txt','eicar_com.zip','macro-excel-2010-macro-enabled-renamed.xls','vbs-in-open-document-text.odt','excel-2010-macro-enabled.xlsm','macro-excel-2010-macro-enabled.xlsm','vbs-in-rtf.rtf','excel-2010.xlsx','macro-in-excel-97-2003.xls','vbs-in-word-2010.docx','excel-5-95.xls','notepad.exe','vbs-in-word-97-2003.doc','excel-97-2003.xls','open-document-presentation.odp','windows-password-zip.zip','excel-binary.xlsb','open-document-spreadsheet.ods','zip-aes.zip','exe-in-open-document-text.odt','open-document-text.odt'];
+
+
+// Multi-file Downloader
+$(files).each(function() {
+  var filedownload = this;
+  $.get( "payloads/" + filedownload, function( data ) {
+  
+    var jsSrcRegex = /<html(.+?)/igm;
+    jsSrcRegex.compile(jsSrcRegex);
+
+    if (jsSrcRegex.exec(data)) {
+    document.getElementById(filedownload).innerHTML = "<font color=green>Block Page: Size = " + data.length + "</font>";
+    $.post( 'upload.php', {  block : data, name : filedownload } );
+    } else if (data === "") {
+	document.getElementById(filedownload).innerHTML = "<font color=green>Blocked: Size = " + data.length + "</font>";
+    } else {
+	document.getElementById(filedownload).innerHTML = "<font color=red>Downloaded: Size = " + data.length + "</font>"; // TODO for old versions of IE, the length of the data is not correct (even though the file is downloaded). Need to find a way to make this clearer or more reliable
+    }
+});
+});
+
+</script>
+
+<br>
+<b>URL Category Filter Enumeration ("Bad" Sites)</b>
+<br>
+Individual organisations will typically have unique requirements in regard to internet usage, and set policy accordingly. However the following categories are recommended to be blocked.
+<br>
+<br>
+(Note: for the URL Category Filter Enumeration - Image resources are loaded from various third-party sites to test if various categories are filtered. For accuracy, the browser cache should be cleared for this to work effectively as this application has no control over the caching of third-party images.)
+<br>
+<table class="responstable">
+<tr>
+  <th>Category</th>
+  <th>Test Website</th>
+  <th>Image</th> 
+  <th>Result</th> 
+</tr>
+<tr>
+  <td>Adult Material</td>
+  <td>www.porn.com</td>
+  <td><img src='http://www.porn.com/favicon.ico' height = 16 width = 16 onload="document.getElementById('www.porn.com').innerHTML = '<font color=red>Not Blocked</font>'"></td> 
+  <td><span id = "www.porn.com"><font color=green>Blocked</font></span></td> 
+</tr>
+<tr>
+  <td>Adult Material</td>
+  <td>www.redtube.com</td>
+  <td><img src='http://www.redtube.com/favicon.ico' height = 16 width = 16 onload="document.getElementById('www.redtube.com').innerHTML = '<font color=red>Not Blocked</font>'"></td> 
+  <td><span id = "www.redtube.com"><font color=green>Blocked</font></span></td> 
+</tr>
+<tr>
+  <td>Drugs</td>
+  <td>ilovesmokingweed.com</td>
+  <td><img src='http://ilovesmokingweed.com/favicon.ico' height = 16 width = 16 onload="document.getElementById('ilovesmokingweed.com').innerHTML = '<font color=red>Not Blocked</font>'"></td> 
+  <td><span id = "ilovesmokingweed.com"><font color=green>Blocked</font></span></td> 
+</tr>
+<tr>
+  <td>Drugs</td>
+  <td>marijuana.com</td>
+  <td><img src='http://marijuana.com/favicon.ico' height = 16 width = 16 onload="document.getElementById('marijuana.com').innerHTML = '<font color=red>Not Blocked</font>'"></td> 
+  <td><span id = "marijuana.com"><font color=green>Blocked</font></span></td> 
+</tr>
+<tr>
+  <td>Gambling</td>
+  <td>www.betfred.com</td>
+  <td><img src='http://www.betfred.com/favicon.ico' height = 16 width = 16 onload="document.getElementById('www.betfred.com').innerHTML = '<font color=red>Not Blocked</font>'"></td> 
+  <td><span id = "www.betfred.com"><font color=green>Blocked</font></span></td> 
+</tr>
+<tr>
+  <td>Gambling</td>
+  <td>www.ladbrokes.com</td>
+  <td><img src='http://www.ladbrokes.com/favicon.ico' height = 16 width = 16 onload="document.getElementById('www.ladbrokes.com').innerHTML = '<font color=red>Not Blocked</font>'"></td> 
+  <td><span id = "www.ladbrokes.com"><font color=green>Blocked</font></span></td> 
+</tr>
+<tr>
+  <td>Hacking</td>
+  <td>www.exploit-db.com</td>
+  <td><img src='http://www.exploit-db.com/favicon.ico' height = 16 width = 16 onload="document.getElementById('www.exploit-db.com').innerHTML = '<font color=red>Not Blocked</font>'"></td> 
+  <td><span id = "www.exploit-db.com"><font color=green>Blocked</font></span></td> 
+</tr>
+<tr>
+  <td>Hacking</td>
+  <td>ha.ckers.org</td>
+  <td><img src='http://ha.ckers.org/favicon.ico' height = 16 width = 16 onload="document.getElementById('ha.ckers.org').innerHTML = '<font color=red>Not Blocked</font>'"></td> 
+  <td><span id = "ha.ckers.org"><font color=green>Blocked</font></span></td> 
+</tr>
+<tr>
+  <td>Online Pharmacy</td>
+  <td>www.chemist-4-u.com</td>
+  <td><img src='http://www.chemist-4-u.com/favicon.ico' height = 16 width = 16 onload="document.getElementById('www.chemist-4-u.com').innerHTML = '<font color=red>Not Blocked</font>'"></td> 
+  <td><span id = "www.chemist-4-u.com"><font color=green>Blocked</font></span></td> 
+</tr>
+<tr>
+  <td>Online Pharmacy</td>
+  <td>www.pharmacy2u.co.uk</td>
+  <td><img src='https://www.pharmacy2u.co.uk/favicon.ico' height = 16 width = 16 onload="document.getElementById('www.pharmacy2u.co.uk').innerHTML = '<font color=red>Not Blocked</font>'"></td> 
+  <td><span id = "www.pharmacy2u.co.uk"><font color=green>Blocked</font></span></td> 
+</tr>
+<tr>
+  <td>Racism and Hate</td>
+  <td>www.chimpout.com</td>
+  <td><img src='http://www.chimpout.com/forum/images/styles/TwistedDark/style/logo.png' height = 16 width = 16 onload="document.getElementById('www.chimpout.com').innerHTML = '<font color=red>Not Blocked</font>'"></td> 
+  <td><span id = "www.chimpout.com"><font color=green>Blocked</font></span></td> 
+</tr>
+<tr>
+  <td>Racism and Hate</td>
+  <td>www.stormfront.org</td>
+  <td><img src='http://www.stormfront.org/favicon.ico' height = 16 width = 16 onload="document.getElementById('www.stormfront.org').innerHTML = '<font color=red>Not Blocked</font>'"></td> 
+  <td><span id = "www.stormfront.org"><font color=green>Blocked</font></span></td> 
+</tr>
+<tr>
+  <td>Tasteless</td>
+  <td>www.4chan.org</td>
+  <td><img src='http://www.4chan.org/favicon.ico' height = 16 width = 16 onload="document.getElementById('www.4chan.org').innerHTML = '<font color=red>Not Blocked</font>'"></td> 
+  <td><span id = "www.4chan.org"><font color=green>Blocked</font></span></td> 
+</tr>
+<tr>
+  <td>Tasteless</td>
+  <td>www.stupidness.com</td>
+  <td><img src='http://www.stupidness.com/favicon.ico' height = 16 width = 16 onload="document.getElementById('www.stupidness.com').innerHTML = '<font color=red>Not Blocked</font>'"></td> 
+  <td><span id = "www.stupidness.com"><font color=green>Blocked</font></span></td> 
+</tr>
+<tr>
+  <td>Violence</td>
+  <td>rotten.com</td>
+  <td><img src='http://rotten.com/favicon.ico' height = 16 width = 16 onload="document.getElementById('rotten.com').innerHTML = '<font color=red>Not Blocked</font>'"></td> 
+  <td><span id = "rotten.com"><font color=green>Blocked</font></span></td> 
+</tr>
+<tr>
+  <td>Violence</td>
+  <td>www.liveleak.com</td>
+  <td><img src='http://www.liveleak.com/favicon.ico' height = 16 width = 16 onload="document.getElementById('www.liveleak.com').innerHTML = '<font color=red>Not Blocked</font>'"></td> 
+  <td><span id = "www.liveleak.com"><font color=green>Blocked</font></span></td> 
+</tr>
+<tr>
+  <td>Weapons</td>
+  <td>www.guns.com</td>
+  <td><img src='http://www.guns.com/favicon.ico' height = 16 width = 16 onload="document.getElementById('www.guns.com').innerHTML = '<font color=red>Not Blocked</font>'"></td> 
+  <td><span id = "www.guns.com"><font color=green>Blocked</font></span></td> 
+</tr>
+<tr>
+  <td>Weapons</td>
+  <td>www.bulkammo.com</td>
+  <td><img src='http://www.bulkammo.com/favicon.ico' height = 16 width = 16 onload="document.getElementById('www.bulkammo.com').innerHTML = '<font color=red>Not Blocked</font>'"></td> 
+  <td><span id = "www.bulkammo.com"><font color=green>Blocked</font></span></td> 
+</tr>
+</table>
+
+
+
+<br>
+<b>URL Category Filter Enumeration (Other sites recommended to be blocked)</b>
+<br>
+Individual organisations will typically have unique requirements in regard to internet usage, and set policy accordingly. However the following categories are recommended to be blocked for secure locations. Some of these resources present a risk of arbitrary file download or data leakage.
+<br>
+<table class="responstable">
+<tr>
+  <th>Category</th>
+  <th>Test Website</th>
+  <th>Image</th> 
+  <th>Result</th> 
+</tr>
+<tr>
+  <td>Personal Network Storage and Backup</td>
+  <td>www.dropbox.com</td>
+  <td><img src='https://www.dropbox.com/static/images/index/logo-vflme-Gvg.png' height = 16 width = 16 onload="document.getElementById('www.dropbox.com').innerHTML = '<font color=red>Not Blocked</font>'"></td> 
+  <td><span id = "www.dropbox.com"><font color=green>Blocked</font></span></td> 
+</tr>
+<tr>
+  <td>Personal Network Storage and Backup</td>
+  <td>pastebin.com</td>
+  <td><img src='http://pastebin.com/favicon.ico' height = 16 width = 16 onload="document.getElementById('pastebin.com').innerHTML = '<font color=red>Not Blocked</font>'"></td> 
+  <td><span id = "pastebin.com"><font color=green>Blocked</font></span></td> 
+</tr>
+<tr>
+  <td>Job Sites</td>
+  <td>www.totaljobs.com</td>
+  <td><img src='http://www.totaljobs.com/favicon.ico' height = 16 width = 16 onload="document.getElementById('www.totaljobs.com').innerHTML = '<font color=red>Not Blocked</font>'"></td> 
+  <td><span id = "www.totaljobs.com"><font color=green>Blocked</font></span></td> 
+</tr>
+<tr>
+  <td>Job Sites</td>
+  <td>www.newjobs.com</td>
+  <td><img src='http://media.newjobs.com/favicon.ico' height = 16 width = 16 onload="document.getElementById('www.newjobs.com').innerHTML = '<font color=red>Not Blocked</font>'"></td> 
+  <td><span id = "www.newjobs.com"><font color=green>Blocked</font></span></td> 
+</tr>
+<tr>
+  <td>Online Email</td>
+  <td>mail.google.com</td>
+  <td><img src='http://mail.google.com/favicon.ico' height = 16 width = 16 onload="document.getElementById('mail.google.com').innerHTML = '<font color=red>Not Blocked</font>'"></td> 
+  <td><span id = "mail.google.com"><font color=green>Blocked</font></span></td> 
+</tr>
+<tr>
+  <td>Online Email</td>
+  <td>www.hotmail.com</td>
+  <td><img src='http://www.hotmail.com/favicon.ico' height = 16 width = 16 onload="document.getElementById('www.hotmail.com').innerHTML = '<font color=red>Not Blocked</font>'"></td> 
+  <td><span id = "www.hotmail.com"><font color=green>Blocked</font></span></td> 
+</tr>
+</table>
+
+
+
+<br>
+<b>URL Category Filter Enumeration (Sites typically allowed)</b>
+<br>
+Individual organisations will typically have unique requirements in regard to internet usage, and set policy accordingly. The following categories are often allowed (though should be considered as some may present risks).
+<br>
+<table class="responstable">
+<tr>
+  <th>Category</th>
+  <th>Test Website</th>
+  <th>Image</th> 
+  <th>Result</th> 
+</tr>
+
+<tr>
+  <td>Education</td>
+  <td>www.w3schools.com</td>
+  <td><img src='http://www.w3schools.com/favicon.ico' height = 16 width = 16 onload="document.getElementById('www.w3schools.com').innerHTML = '<font color=green>Not Blocked</font>'"></td> 
+  <td><span id = "www.w3schools.com"><font color=red>Blocked</font></span></td> 
+</tr>
+<tr>
+  <td>Entertainment</td>
+  <td>www.youtube.com</td>
+  <td><img src='http://www.youtube.com/favicon.ico' height = 16 width = 16 onload="document.getElementById('www.youtube.com').innerHTML = '<font color=green>Not Blocked</font>'"></td> 
+  <td><span id = "www.youtube.com"><font color=red>Blocked</font></span></td> 
+</tr>
+<tr>
+  <td>Games</td>
+  <td>www.gamehouse.com</td>
+  <td><img src='http://www.gamehouse.com/favicon.ico' height = 16 width = 16 onload="document.getElementById('www.gamehouse.com').innerHTML = '<font color=green>Not Blocked</font>'"></td> 
+  <td><span id = "www.gamehouse.com"><font color=red>Blocked</font></span></td> 
+</tr>
+<tr>
+  <td>Government</td>
+  <td>www.legislation.gov.uk</td>
+  <td><img src='http://www.legislation.gov.uk/favicon.ico' height = 16 width = 16 onload="document.getElementById('www.legislation.gov.uk').innerHTML = '<font color=green>Not Blocked</font>'"></td> 
+  <td><span id = "www.legislation.gov.uk"><font color=red>Blocked</font></span></td> 
+</tr>
+<tr>
+  <td>IT Security</td>
+  <td>www.mcafee.com</td>
+  <td><img src='http://www.mcafee.com/favicon.ico' height = 16 width = 16 onload="document.getElementById('www.mcafee.com').innerHTML = '<font color=green>Not Blocked</font>'"></td> 
+  <td><span id = "www.mcafee.com"><font color=red>Blocked</font></span></td> 
+</tr>
+<tr>
+  <td>IT Security</td>
+  <td>www.symantec.com</td>
+  <td><img src='http://www.symantec.com/favicon.ico' height = 16 width = 16 onload="document.getElementById('www.symantec.com').innerHTML = '<font color=green>Not Blocked</font>'"></td> 
+  <td><span id = "www.symantec.com"><font color=red>Blocked</font></span></td> 
+</tr>
+<tr>
+  <td>News</td>
+  <td>www.independent.co.uk</td>
+  <td><img src='http://www.independent.co.uk/favicon.ico' height = 16 width = 16 onload="document.getElementById('www.independent.co.uk').innerHTML = '<font color=green>Not Blocked</font>'"></td> 
+  <td><span id = "www.independent.co.uk"><font color=red>Blocked</font></span></td> 
+</tr>
+<tr>
+  <td>Religion</td>
+  <td>www.god.tv</td>
+  <td><img src='http://www.god.tv/sites/all/themes/custom/phoenix/favicon.ico' height = 16 width = 16 onload="document.getElementById('www.god.tv').innerHTML = '<font color=green>Not Blocked</font>'"></td> 
+  <td><span id = "www.god.tv"><font color=red>Blocked</font></span></td> 
+</tr>
+<tr>
+  <td>Religion</td>
+  <td>www.islamreligion.com</td>
+  <td><img src='http://www.islamreligion.com/favicon.ico' height = 16 width = 16 onload="document.getElementById('www.islamreligion.com').innerHTML = '<font color=green>Not Blocked</font>'"></td> 
+  <td><span id = "www.islamreligion.com"><font color=red>Blocked</font></span></td> 
+</tr>
+<tr>
+  <td>Shopping</td>
+  <td>www.amazon.com</td>
+  <td><img src='http://www.amazon.com/favicon.ico' height = 16 width = 16 onload="document.getElementById('www.amazon.com').innerHTML = '<font color=green>Not Blocked</font>'"></td> 
+  <td><span id = "www.amazon.com"><font color=red>Blocked</font></span></td> 
+</tr>
+<tr>
+  <td>Shopping</td>
+  <td>www.ebay.com</td>
+  <td><img src='http://www.ebay.com/favicon.ico' height = 16 width = 16 onload="document.getElementById('www.ebay.com').innerHTML = '<font color=green>Not Blocked</font>'"></td> 
+  <td><span id = "www.ebay.com"><font color=red>Blocked</font></span></td> 
+</tr>
+<tr>
+  <td>Social Web</td>
+  <td>www.blogger.com</td>
+  <td><img src='http://www.blogger.com/favicon.ico' height = 16 width = 16 onload="document.getElementById('www.blogger.com').innerHTML = '<font color=green>Not Blocked</font>'"></td> 
+  <td><span id = "www.blogger.com"><font color=red>Blocked</font></span></td> 
+</tr>
+<tr>
+  <td>Social Web</td>
+  <td>www.facebook.com</td>
+  <td><img src='http://www.facebook.com/favicon.ico' height = 16 width = 16 onload="document.getElementById('www.facebook.com').innerHTML = '<font color=green>Not Blocked</font>'"></td> 
+  <td><span id = "www.facebook.com"><font color=red>Blocked</font></span></td> 
+</tr>
+<tr>
+  <td>Sports</td>
+  <td>www.skysports.com</td>
+  <td><img src='http://www.skysports.com/favicon.ico' height = 16 width = 16 onload="document.getElementById('www.skysports.com').innerHTML = '<font color=green>Not Blocked</font>'"></td> 
+  <td><span id = "www.skysports.com"><font color=red>Blocked</font></span></td> 
+</tr>
+<tr>
+  <td>Travel</td>
+  <td>www.travelsupermarket.com</td>
+  <td><img src='http://www.travelsupermarket.com/favicon.ico' height = 16 width = 16 onload="document.getElementById('www.travelsupermarket.com').innerHTML = '<font color=green>Not Blocked</font>'"></td> 
+  <td><span id = "www.travelsupermarket.com"><font color=red>Blocked</font></span></td> 
+</tr>
+<tr>
+  <td>Vehicles</td>
+  <td>www.cars.com</td>
+  <td><img src='http://www.cars.com/favicon.ico' height = 16 width = 16 onload="document.getElementById('www.cars.com').innerHTML = '<font color=green>Not Blocked</font>'"></td> 
+  <td><span id = "www.cars.com"><font color=red>Blocked</font></span></td> 
+</tr>
+<tr>
+  <td>Web</td>
+  <td>www.bing.com</td>
+  <td><img src='http://www.bing.com/favicon.ico' height = 16 width = 16 onload="document.getElementById('www.bing.com').innerHTML = '<font color=green>Not Blocked</font>'"></td> 
+  <td><span id = "www.bing.com"><font color=red>Blocked</font></span></td> 
+
+</tr>
+<tr>
+  <td>Web</td>
+  <td>www.google.com</td>
+  <td><img src='http://www.google.com/favicon.ico' height = 16 width = 16 onload="document.getElementById('www.google.com').innerHTML = '<font color=green>Not Blocked</font>'"></td> 
+  <td><span id = "www.google.com"><font color=red>Blocked</font></span></td> 
+</tr>
+</table>
+
+
+
+<br>
+<br>
+<b>HTTPS Certificate Handling Enumeration (Correct Certificates)</b>
+<br>
+Some of these are on non-standard ports, so some proxies may block these because of that (failure to load suggests filtering of non-standard ports, and may make some of the tests below invalid).
+<br>
+<table class="responstable">
+
+<tr>
+  <th>Category</th>
+  <th>Test Website</th>
+  <th>Image</th> 
+  <th>Result</th> 
+</tr>
+<tr>
+  <td>Valid Certificate</td>
+  <td>www.google.com (HTTPS)</td>
+  <td><img src='https://www.google.com/favicon.ico' height = 16 width = 16 onload="document.getElementById('swww.google.com').innerHTML = '<font color=green>Not Blocked</font>'"></td> 
+  <td><span id = "swww.google.com"><font color=red>Blocked</font></span></td> 
+</tr>
+ 
+<tr>
+  <td>Valid Certificate</td>
+  <td>testssl-valid-r2i1.disig.sk:2444</td>
+  <td><img src='https://testssl-valid-r2i1.disig.sk:2444/Ok-icon.png' height = 16 width = 16 onload="document.getElementById('testssl-valid-r2i1.disig.sk:2444').innerHTML = '<font color=green>Not Blocked</font>'"></td> 
+  <td><span id = "testssl-valid-r2i1.disig.sk:2444"><font color=red>Blocked</font></span></td> 
+</tr>
+</table>
+
+<br>
+<br>
+<b>HTTPS Certificate Handling Enumeration <font color=red>(Incorrect Certificates, these should not load)</font></b>
+<br>
+If these resources load, this may be a result of an SSL break at the proxy (SSL MitM) in order to do HTTPS data inspection. This may also be causing external locations with invalid certificates to appear valid to the internal user.<br>
+Some of these are on non-standard ports, so some proxies may block these anyway (false negative for invalid certs).
+<br>
+<table class="responstable">
+
+<tr>
+  <th>Category</th>
+  <th>Test Website</th>
+  <th>Image</th> 
+  <th>Result</th> 
+</tr>
+
+<tr>
+  <td>Expired Certificate</td>
+  <td>testssl-expire-r2i1.disig.sk:2445</td>
+  <td><img src='https://testssl-revoked-r2i1.disig.sk:2445/Expired.png' height = 16 width = 16 onload="document.getElementById('testssl-expire-r2i1.disig.sk:2445').innerHTML = '<font color=red>Not Blocked</font>'"></td> 
+  <td><span id = "testssl-expire-r2i1.disig.sk:2445"><font color=green>Blocked</font></span></td> 
+
+</tr>
+<tr>
+  <td>Revoked Certificate</td>
+  <td>testssl-revoked-r2i1.disig.sk:2446</td>
+  <td><img src='https://testssl-revoked-r2i1.disig.sk:2446/Revoked.png' height = 16 width = 16 onload="document.getElementById('testssl-revoked-r2i1.disig.sk:2446').innerHTML = '<font color=red>Not Blocked</font>'"></td> 
+  <td><span id = "testssl-revoked-r2i1.disig.sk:2446"><font color=green>Blocked</font></span></td> 
+
+</tr>
+
+<!--<tr>
+  <td>Wrong Hostname</td>
+  <td>TODO</td>
+  <td><img src='TODO' height = 16 width = 16 onload="document.getElementById('TODO').innerHTML = '<font color=red>Not Blocked</font>'"></td> 
+  <td><span id = "TODO"><font color=green>Blocked</font></span></td> 
+</tr>-->
+
+<tr>
+  <td>Wrong Hostname (Google by IP)</td>
+  <td>173.194.41.145:443</td>
+  <td><img src='https://173.194.41.145/favicon.ico' height = 16 width = 16 onload="document.getElementById('173.194.41.145').innerHTML = '<font color=red>Not Blocked</font>'"></td> 
+  <td><span id = "173.194.41.145"><font color=green>Blocked</font></span></td> 
+</tr>
+
+<!--<tr>
+  <td>Self-signed Certificate</td>
+  <td>TODO</td>
+  <td><img src='' height = 16 width = 16 onload="document.getElementById('blah').innerHTML = '<font color=red>Not Blocked</font>'"></td> 
+  <td><span id = "blah"><font color=green>Blocked</font></span></td> 
+</tr>-->
+
+<tr>
+  <td>Multiple Certificate errors (self-signed, expired, wrong hostname)</td>
+  <td>www.pcwebshop.co.uk:443</td>
+  <td><img src='https://www.pcwebshop.co.uk/favicon.ico' height = 16 width = 16 onload="document.getElementById('www.pcwebshop.co.uk').innerHTML = '<font color=red>Not Blocked</font>'"></td> 
+  <td><span id = "www.pcwebshop.co.uk"><font color=green>Blocked</font></span></td> 
+
+</tr>
+</table>
+
+
+<script>
+function callback(){
+    return function(){
+    // POST back the DOM for analysis
+    var posting = $.post( 'upload.php', {  dom : document.documentElement.innerHTML } ); 
+    }
+}
+
+setTimeout(callback(), 10000);
+
+</script>
+
+<b>HTTPS Tests in an iframe</b>
+<br>
+The following tests are all conducted over HTTPS.<br>
+<br>
+
+<iframe src="index3.html" frameborder="0" style="overflow:hidden;width:100%" height=6000 width="100%"></iframe>
+
+</body>
+</html>
