@@ -1,4 +1,15 @@
-== Web Filter External Enumeration Tool ==
+Web Filter External Enumeration Tool (WebFEET)
+======================
+
+WebFEET
+
+Released as open source by NCC Group Plc - http://www.nccgroup.com/
+
+Developed by Ben Williams
+
+https://github.com/nccgroup/webfeet
+
+Released under AGPL see LICENSE for more information
 
 WebFEET is a web application for the drive-by enumeration of web security proxies and policies. See associated white paper: https://www.nccgroup.com/media/481419/wp-us-14-williams-i_know_your_filtering_solution_better_than_you_do-web-1-0.pdf (Drive-by enumeration of web filtering solutions)
 
