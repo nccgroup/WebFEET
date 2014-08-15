@@ -289,54 +289,31 @@ Simple threats are tested here, to see if they are allowed, dropped, redirected,
   <td>EICAR basic test</td>
   <td>68 bytes</td>
   <td><span id="eicar.com">No response</span></td> 
-
-</tr>
-<tr>
-  <td>A standard Windows exe</td>
-  <td>0.2 MB</td>
-  <td><span id="notepad.exe">No response</span></td> 
 </tr>
 <tr>
   <td>A file with profanity</td>
   <td>39 bytes</td>
   <td><span id="profane.txt">No response</span></td>  
-
-</tr>
-<tr>
-  <td>An unlocked breakout shell</td>
-  <td>0.3 MB</td>
-  <td><span id="64unlocked-cmd.exe">No response</span></td> 
-
-</tr>
-<tr>
-  <td>A Password dumping tool</td>
-  <td>0.5 MB</td>
-  <td><span id="gsecdump-v2b5.exe">No response</span></td>
-
 </tr>
 <tr>
   <td>EICAR in a zip</td>
   <td>184 bytes</td>
   <td><span id="eicar_com.zip">No response</span></td>
-
 </tr>
 <tr>
   <td>Some VBS script</td>
   <td>22 bytes</td>
   <td><span id="hello.vbs">No response</span></td>
-
 </tr>
 <tr>
   <td>A batch file</td>
   <td>11 bytes</td>
   <td><span id="hello.bat">No response</span></td>
-
 </tr>
 <tr>
   <td>A test block page (this should download and show green)</td>
   <td>500 bytes</td>
   <td><span id="blah.html">No response</span></td>
-
 </tr>
 </table>
 
@@ -682,7 +659,7 @@ More challenging embedded threats are tested here, to see if they are allowed, d
 
 
 <script>
-var files = ['test.com', 'test.cpl', 'test.hta', 'test.jar', 'test.msc', 'test.pif', 'test.scr', 'test.bat', 'test.cmd', 'test.ps1', 'test.ps1xml', 'test.ps2', 'test.ps2xml', 'test.psc1', 'test.psc2', 'test.vb', 'test.vbe', 'test.vbs', 'test.ws', 'test.wsc', 'test.wsf', 'test.wsh', 'test.reg', 'test.exe', '64unlocked-cmd.exe','exe-in-rtf.rtf','password-word-2010.docx','attachment1.txt.gpg','exe-in-word-2010.docx','password-word-2010-macro-enabled.docm','batch-in-open-document-text.odt','exe-in-word-97-2003.doc','password-word-97-2003.doc','batch-in-rtf.rtf','exe-popup.doc','powerpoint-2010-macro-enabled.pptm','batch-in-word-2010.docx','exe-popup.exe','powerpoint-2010.pptx','batch-in-word-97-2003.doc','exe-popup.txt','powerpoint-97-2003.ppt','blah.html','gsecdump-v2b5.exe','powerpoint-show-macro-enabled.ppsm','blah.html~','hello.bat','powerpoint-show.ppsx','eicar.com','hello.vbs','profane.txt','eicar_com.zip','macro-excel-2010-macro-enabled-renamed.xls','vbs-in-open-document-text.odt','excel-2010-macro-enabled.xlsm','macro-excel-2010-macro-enabled.xlsm','vbs-in-rtf.rtf','excel-2010.xlsx','macro-in-excel-97-2003.xls','vbs-in-word-2010.docx','excel-5-95.xls','notepad.exe','vbs-in-word-97-2003.doc','excel-97-2003.xls','open-document-presentation.odp','windows-password-zip.zip','excel-binary.xlsb','open-document-spreadsheet.ods','zip-aes.zip','exe-in-open-document-text.odt','open-document-text.odt'];
+var files = ['test.com', 'test.cpl', 'test.hta', 'test.jar', 'test.msc', 'test.pif', 'test.scr', 'test.bat', 'test.cmd', 'test.ps1', 'test.ps1xml', 'test.ps2', 'test.ps2xml', 'test.psc1', 'test.psc2', 'test.vb', 'test.vbe', 'test.vbs', 'test.ws', 'test.wsc', 'test.wsf', 'test.wsh', 'test.reg', 'test.exe','exe-in-rtf.rtf','password-word-2010.docx','attachment1.txt.gpg','exe-in-word-2010.docx','password-word-2010-macro-enabled.docm','batch-in-open-document-text.odt','exe-in-word-97-2003.doc','password-word-97-2003.doc','batch-in-rtf.rtf','exe-popup.doc','powerpoint-2010-macro-enabled.pptm','batch-in-word-2010.docx','exe-popup.exe','powerpoint-2010.pptx','batch-in-word-97-2003.doc','exe-popup.txt','powerpoint-97-2003.ppt','blah.html','powerpoint-show-macro-enabled.ppsm','blah.html~','hello.bat','powerpoint-show.ppsx','eicar.com','hello.vbs','profane.txt','eicar_com.zip','macro-excel-2010-macro-enabled-renamed.xls','vbs-in-open-document-text.odt','excel-2010-macro-enabled.xlsm','macro-excel-2010-macro-enabled.xlsm','vbs-in-rtf.rtf','excel-2010.xlsx','macro-in-excel-97-2003.xls','vbs-in-word-2010.docx','excel-5-95.xls','vbs-in-word-97-2003.doc','excel-97-2003.xls','open-document-presentation.odp','windows-password-zip.zip','excel-binary.xlsb','open-document-spreadsheet.ods','zip-aes.zip','exe-in-open-document-text.odt','open-document-text.odt'];
 
 
 // Multi-file Downloader

@@ -1,3 +1,9 @@
 v0.5
 ----- 
-Initial public Beta
+Initial internal Beta
+
+
+v0.6
+-----
+Added more tests
+Added HTTPS tests in an iframe (requires a valid certicate)

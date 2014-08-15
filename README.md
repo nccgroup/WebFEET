@@ -32,6 +32,9 @@ Currently implemented features include:
 * Code/style improvements and NCC logo
 
 [Download]
-https://github.com/nccgroup/webfeet/ #TODO shortcut
+https://github.com/nccgroup/WebFEET/archive/master.zip
+
+[Clone]
+https://github.com/nccgroup/WebFEET.git
 
 Usage of this application for enumerating targets without prior mutual consent may be considered an attack in some circumstances. Caution is advised and it remains your responsibility to obey applicable local, state, federal, national and international laws. NCC Group assume no liability and are not responsible for any misuse or damage caused by this application. 

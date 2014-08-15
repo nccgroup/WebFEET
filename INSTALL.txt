@@ -7,10 +7,20 @@ Requirements - PHP, Apache, whois
 sudo -i
 apt-get update -y
 apt-get install apache2 php5 whois -y
-mkdir /var/www/html/WebFEET0.6
-chown ubuntu /var/www/html/WebFEET0.6/
 apt-get upgrade -y
+git clone https://github.com/nccgroup/WebFEET.git
 
+
+# For Ubuntu
+rm -rf /var/www/html/WebFEET0.6
+cp -R WebFEET/WebFEET0.6 /var/www/html/WebFEET0.6
+
+# For Kali
+rm -rf /var/www/WebFEET0.6
+cp -R WebFEET/WebFEET0.6 /var/www/WebFEET0.6
+
+
+Note: If you want to do the tests over HTTPS then you will need to configure SSL with a valid certificate.
 
 Windows
 -------
