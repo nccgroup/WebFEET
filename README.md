@@ -11,7 +11,7 @@ https://github.com/nccgroup/webfeet
 
 Released under AGPL see LICENSE for more information
 
-WebFEET is a web application for the drive-by enumeration of web security proxies and policies. See associated white paper: https://www.nccgroup.com/media/481419/wp-us-14-williams-i_know_your_filtering_solution_better_than_you_do-web-1-0.pdf (Drive-by enumeration of web filtering solutions)
+WebFEET is a web application for the drive-by enumeration of web security proxies and policies. See associated white paper: https://www.nccgroup.com/media/481438/whitepaper-ben-web-filt.pdf (Drive-by enumeration of web filtering solutions)
 
 This tool was developed by Ben Williams, presented at BlackHat US 2014: https://www.blackhat.com/us-14/briefings.html#i-know-your-filtering-policy-better-than-you-do-external-enumeration-and-exploitation-of-email-and-web-security-solutions, and released as open source by NCC Group Plc.
 
