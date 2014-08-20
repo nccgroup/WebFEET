@@ -48,4 +48,9 @@ https://github.com/nccgroup/WebFEET/archive/master.zip
 [Clone]
 https://github.com/nccgroup/WebFEET.git
 
+[Usage advice]
 Usage of this application for enumerating targets without prior mutual consent may be considered an attack in some circumstances. Caution is advised and it remains your responsibility to obey applicable local, state, federal, national and international laws. NCC Group assume no liability and are not responsible for any misuse or damage caused by this application. 
+
+Use this application with care. Arbitrary file uploads are possible (which by default are uploaded into the /tmp/ folder). These file uploads include block-pages and reports from target organisations, but the content is potentially under external control. Caution is advised when opening files. For the reports to be accurate, you should open the html files with a browser with JavaScript disabled (using the NoScript plugin for example) but it may also be advisable to check the files first to make sure they are text/HTML.
+
+This version of the tool is designed to be dual purpose; presenting a report to the user, and uploading the same report to the server. To use this tool in an offensive drive-by manner, the index2.html file could be embedded in a hidden iframe (for example), and users could be sent a link to the page with the iframe (alternatively, the tool could be customised not to display a report to the user, and to send back a JSON array with the results, but that is beyond the scope of what was intended for this tool). 
