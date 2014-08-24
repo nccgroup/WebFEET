@@ -1,6 +1,6 @@
 Linux
 -----
-Tested on Ubuntu 13.04 LTS and Kali Linux
+Tested on Ubuntu 13.04, 14.04 and Kali Linux
 
 Requirements - PHP, Apache, whois
 
@@ -14,6 +14,14 @@ git clone https://github.com/nccgroup/WebFEET.git
 # For Ubuntu
 rm -rf /var/www/html/WebFEET0.6
 cp -R WebFEET/WebFEET0.6 /var/www/html/WebFEET0.6
+
+For maximum browser compatability you should modify the mime types in "/etc/apache2/mods-enabled/mime.conf" otherwise client-side JavaScript may ignore the files.
+
+AddType application/msword docx
+AddType application/vnd.ms-excel xlsx
+AddType application/vnd.ms-powerpoint pptx ppsx
+
+(may need some additional work here for old versions of IE)
 
 # For Kali
 rm -rf /var/www/WebFEET0.6
