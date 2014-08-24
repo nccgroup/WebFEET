@@ -27,6 +27,13 @@ AddType application/vnd.ms-powerpoint pptx ppsx
 rm -rf /var/www/WebFEET0.6
 cp -R WebFEET/WebFEET0.6 /var/www/WebFEET0.6
 
+-------
+
+To use in a drive-by way, you can load the tool in an iframe as follows:
+
+<iframe src="http://youwebfeetlocation/index2.html" height=10 width=10></iframe>
+
+
 
 Note: If you want to do the tests over HTTPS then you will need to configure SSL with a valid certificate.
 
